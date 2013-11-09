@@ -1,0 +1,86 @@
+DROP TABLE EMPLOYEE;
+DROP TABLE FAULTREPORT;
+DROP TABLE OUTLET;
+DROP TABLE VEHICLE;
+DROP TABLE CLIENT;
+DROP TABLE RAGREEMENT;
+
+CREATE TABLE Employee
+(EmpNo     CHAR(4)  CONSTRAINT Employee_employeeID_PK PRIMARY KEY,
+ LName   VARCHAR2(20),
+ FName   VARCHAR2(20),
+ Position VARCHAR(20),
+ Phone CHAR(10),
+ DOB DATE,
+ Gender CHAR(1) CHECK(Gender = 'M' OR Gender = 'F'),
+ Salary NUMBER(6),
+ HireDate DATE CHECK(HireDate<sysdate),
+ outNo CHAR(4),
+ SupervisorNo CHAR(4),
+ Email        VARCHAR2(25),
+ CONSTRAINT OutNo_FK   FOREIGN KEY (outNo) 
+            REFERENCES  Outlet (outNo);
+ CONSTRATINT SupervisorNo_FK FOREIGN KEY (SupervisorNo)
+	    REFERENCES Employee (EmpNo));
+
+
+CREATE TABLE Faultreport
+(ReportNum CHAR(4) CONSTRAINT Faultreport_reportnum_PK PRIMARY KEY,
+ DateChecked DATE,
+ Comments VARCHAR(7),
+ EmpNo CHAR(4),
+ LicenseNo VARCHAR(7),
+ RentalNo CHAR(4),
+ CONSTRAINT OutNo_FK   FOREIGN KEY (outNo) 
+            REFERENCES  Outlet (outNo),
+ CONSTRAINT RentalNo_FK   FOREIGN KEY (RentalNo) 
+            REFERENCES  RAgreement(RentalNo)
+ CONSTRATINT EmpNo_FK FOREIGN KEY (EmpNo)
+	    REFERENCES Employee (EmpNo));
+
+CREATE TABLE Vehicle
+(LicenseNo VARCHAR(7) CONSTRAINT Vehicle_LicenseNo_PK PRIMARY KEY,
+ Make VARCHAR(10),
+ Model VARCHAR(10),
+ Color VARCHAR(10),
+ Year CHAR(4),
+ NoDoors CHAR(1) CHECK(NoDoors = 'Y' or NoDoors='N'),
+ Capacity NUMBER(2),
+ DailyRate NUMBER(3),
+ InspectionDate DATE,
+ outNo CHAR(4),
+ CONSTRAINT OutNo_FK   FOREIGN KEY (outNo) 
+            REFERENCES  Outlet (outNo));
+
+CREATE TABLE Client
+(clientNo CHAR(3)  CONSTRAINT Client_ClientNO_PK  PRIMARY KEY
+ ClientName VARCHAR(30),
+ Street VARCHAR(20),
+ City CHAR(20),
+ State CHAR(2),
+ ZipCode NUMBER(5),
+ WebAddress VARCHAR(30),
+ Contact_FName VARCHAR(20),
+ Contact_LName VARCHAR(20),
+ Phone CHAR(10),
+ Email VARCHAR(30)); 
+
+CREATE TABLE RAgreement
+(RentalNo CHAR(4)  CONSTRAINT Ragreement_RentalNO_PK  PRIMARY KEY,
+ StartDate DATE NOT NULL,
+ ReturnDate DATE CHECK(ReturnDate>StartDate),
+ MileageBefore NUMBER(6) 
+ MileageAfter NUMBER(6) CHECK(MileageBefore<MileageAfter),
+ InsuranceType VARCHAR(10),
+ ClientNo CHAR(3),
+ LicenseNo VARCHAR(7),
+ CONSTRAINT ClientNo_FK   FOREIGN KEY (ClientNo) 
+            REFERENCES  Client(ClientNo)
+ CONSTRAINT LicesneNo_FK   FOREIGN KEY (LicenseNo) 
+            REFERENCES  Vehicle(LicenseNo));
+ 
+ 
+
+
+
+
