@@ -44,7 +44,7 @@ CREATE TABLE Vehicle
  Model VARCHAR(10),
  Color VARCHAR(10),
  Year CHAR(4) CHECK(TO_CHAR(SYSDATE,'YYYY')-Year)<10),
- NoDoors CHAR(1) CHECK(NoDoors = 'Y' or NoDoors='N'),
+ NoDoors NUMBER(2),
  Capacity NUMBER(2),
  DailyRate NUMBER(3),
  InspectionDate DATE,
