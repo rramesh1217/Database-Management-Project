@@ -63,7 +63,7 @@ CREATE TABLE Client
  Contact_FName VARCHAR(20),
  Contact_LName VARCHAR(20),
  Phone CHAR(10),
- Email VARCHAR(30)); 
+ Email VARCHAR(30) CHECK(Email like'%@%'));
 
 CREATE TABLE RAgreement
 (RentalNo CHAR(4)  CONSTRAINT Ragreement_RentalNO_PK  PRIMARY KEY,
