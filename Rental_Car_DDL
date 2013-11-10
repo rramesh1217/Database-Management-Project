@@ -1,4 +1,3 @@
-
 ALTER TABLE Employee
 DROP CONSTRAINT OutNo_FK1;
 
@@ -27,7 +26,7 @@ ALTER TABLE RAgreement
 DROP CONSTRAINT Date_check;
 
 ALTER TABLE Faultreport
-DROP CONSTRAINT OutNo_FK3;
+DROP CONSTRAINT LicenseNo_FK1;
 
 ALTER TABLE Faultreport
 DROP CONSTRAINT RentalNo_FK;
@@ -125,12 +124,13 @@ ADD CONSTRAINT OutNo_FK1 FOREIGN KEY(outNo)
 ALTER TABLE Employee
 ADD CONSTRAINT SupervisorNo_FK FOREIGN KEY(SupervisorNo)
 	REFERENCES Employee(EmpNo);
-
+	
+ALTER TABLE Employee
+ADD CONSTRAINT Poisition_check CHECK Position IN('Sales Rep', 'Administrative Assistant', 'Mechanic');
 
 ALTER TABLE Outlet
 ADD CONSTRAINT ManagerNo_FK FOREIGN KEY(ManagerNo)
           REFERENCES Employee(EmpNo);
-
 
 ALTER TABLE Vehicle
 ADD CONSTRAINT OutNo_FK2 FOREIGN KEY(outNo)
@@ -138,7 +138,6 @@ ADD CONSTRAINT OutNo_FK2 FOREIGN KEY(outNo)
 
 ALTER TABLE Vehicle
 ADD CONSTRAINT Check_Age CHECK(TO_NUMBER(TO_CHAR(InsertDate,'YYYY'))-'Year'<10);
-
 
 ALTER TABLE RAgreement
 ADD CONSTRAINT ClientNo_FK FOREIGN KEY(ClientNo)
@@ -155,8 +154,8 @@ ALTER TABLE RAgreement
 ADD CONSTRAINT Date_check CHECK(ReturnDate>StartDate);
 
 ALTER TABLE Faultreport
-ADD CONSTRAINT OutNo_FK3 FOREIGN KEY(outNo)
-            REFERENCES Outlet(outNo);
+ADD CONSTRAINT LicenseNo1_FK3 FOREIGN KEY(LicenseNo)
+            REFERENCES Vehicle(LicenseNo);
 
 ALTER TABLE Faultreport
 ADD CONSTRAINT RentalNo_FK FOREIGN KEY(RentalNo)
