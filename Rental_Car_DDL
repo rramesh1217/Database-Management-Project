@@ -1,12 +1,49 @@
-DROP TABLE EMPLOYEE;
-DROP TABLE FAULTREPORT;
-DROP TABLE OUTLET;
-DROP TABLE VEHICLE;
+
+ALTER TABLE Employee
+DROP CONSTRAINT OutNo_FK1;
+
+ALTER TABLE Employee
+DROP CONSTRAINT SupervisorNo_FK;
+
+ALTER TABLE Outlet
+DROP CONSTRAINT ManagerNo_FK;
+
+ALTER TABLE Vehicle
+DROP CONSTRAINT OutNo_FK2;
+
+ALTER TABLE Vehicle
+DROP CONSTRAINT Check_Age;
+
+ALTER TABLE RAgreement
+DROP CONSTRAINT;
+
+ALTER TABLE RAgreement 
+DROP CONSTRAINT LicenseNo_FK;
+
+ALTER TABLE RAgreement
+DROP CONSTRAINT Check_mileage;
+
+ALTER TABLE RAgreement
+DROP CONSTRAINT Date_check;
+
+ALTER TABLE Faultreport
+DROP CONSTRAINT OutNo_FK3;
+
+ALTER TABLE Faultreport
+DROP CONSTRAINT RentalNo_FK;
+
+ALTER TABLE Faultreport
+DROP CONSTRAINT EmpNo_FK;
+
 DROP TABLE CLIENT;
-DROP TABLE RAGREEMENT;
+DROP TABLE OUTLET;
+DROP TABLE EMPLOYEE;
+DROP TABLE VEHICLE;
+DROP TABLE FAULTREPORT;
+DROP TABLE RAGREEMENT;*/
 
 CREATE TABLE Client
-(clientNo CHAR(3)  CONSTRAINT Client_ClientNO_PK  PRIMARY KEY
+(clientNo CHAR(3) CONSTRAINT Client_ClientNO_PK PRIMARY KEY,
  ClientName VARCHAR(30),
  Street VARCHAR(20),
  City CHAR(20),
@@ -16,66 +53,61 @@ CREATE TABLE Client
  Contact_FName VARCHAR(20),
  Contact_LName VARCHAR(20),
  Phone CHAR(10),
- Email VARCHAR(30) CHECK(Email like'%@%'));
+ Email VARCHAR(30) CHECK(Email like'%@%')); 
+/*Constraint defined by us*/
+
+CREATE TABLE Employee
+(EmpNo CHAR(4) CONSTRAINT Employee_employeeID_PK PRIMARY KEY,
+ LName VARCHAR2(20),
+ FName VARCHAR2(20),
+ Position VARCHAR(20),
+ Phone CHAR(10),
+ DOB DATE,
+ Gender CHAR(1) CHECK(Gender = 'M' OR Gender = 'F'), 
+/*Constraint defined by us*/
+ Salary NUMBER(6),
+ HireDate DATE DEFAULT SYSDATE,
+ outNo CHAR(4),
+ SupervisorNo CHAR(4),
+ Email VARCHAR2(25) CHECK(Email like '%@%')); 
+/*Constraint defined by us*/
  
  
  CREATE TABLE Outlet
- (outNo CHAR(4) CONSTRAINT Outlet_OutNo_PK PRIMARY KEY
+ (outNo CHAR(4) CONSTRAINT Outlet_OutNo_PK PRIMARY KEY,
   Street VARCHAR(20),
   City VARCHAR(20),
   ZipCode NUMBER(5),
   Phone NUMBER(10),
-  ManagerNo CHAR(4),
-  CONSTRAINT ManagerNo_FK FOREIGN KEY(ManagerNo)
-  	REFERENCES Employee(EmpNo);
-
-CREATE TABLE Employee
-(EmpNo     CHAR(4)  CONSTRAINT Employee_employeeID_PK PRIMARY KEY,
- LName   VARCHAR2(20),
- FName   VARCHAR2(20),
- Position VARCHAR(20),
- Phone CHAR(10),
- DOB DATE,
- Gender CHAR(1) CHECK(Gender = 'M' OR Gender = 'F'),
- Salary NUMBER(6),
- HireDate DATE CHECK(HireDate<sysdate),
- outNo CHAR(4),
- SupervisorNo CHAR(4),
- Email        VARCHAR2(25),
- CONSTRAINT OutNo_FK   FOREIGN KEY (outNo) 
-            REFERENCES  Outlet (outNo);
- CONSTRAINT SupervisorNo_FK FOREIGN KEY (SupervisorNo)
-	    REFERENCES Employee (EmpNo));
+  ManagerNo CHAR(4));
+ 
 
 CREATE TABLE Vehicle
 (LicenseNo VARCHAR(7) CONSTRAINT Vehicle_LicenseNo_PK PRIMARY KEY,
  Make VARCHAR(10),
  Model VARCHAR(10),
  Color VARCHAR(10),
- Year CHAR(4) CHECK(TO_CHAR(SYSDATE,'YYYY')-Year)<10),
+ Year NUMBER(4),
  NoDoors NUMBER(2),
  Capacity NUMBER(2),
  DailyRate NUMBER(3),
  InspectionDate DATE,
  outNo CHAR(4),
- CONSTRAINT OutNo_FK   FOREIGN KEY (outNo) 
-            REFERENCES  Outlet (outNo));
+ InsertDate DATE); 
+/*Should insert 'Sysdate' into this column every time we insert*/
 
 
 CREATE TABLE RAgreement
-(RentalNo CHAR(4)  CONSTRAINT Ragreement_RentalNO_PK  PRIMARY KEY,
- StartDate DATE NOT NULL,
- ReturnDate DATE CHECK(ReturnDate>StartDate),
- MileageBefore NUMBER(6) 
- MileageAfter NUMBER(6) CHECK(MileageBefore<MileageAfter),
+(RentalNo CHAR(4) CONSTRAINT Ragreement_RentalNO_PK PRIMARY KEY,
+ StartDate DATE DEFAULT SYSDATE,
+ ReturnDate DATE,
+ MileageBefore NUMBER(6),
+ MileageAfter NUMBER(6),
  InsuranceType VARCHAR(10),
  ClientNo CHAR(3),
- LicenseNo VARCHAR(7),
- CONSTRAINT ClientNo_FK   FOREIGN KEY (ClientNo) 
-            REFERENCES  Client(ClientNo)
- CONSTRAINT LicesneNo_FK   FOREIGN KEY (LicenseNo) 
-            REFERENCES  Vehicle(LicenseNo));
- 
+ LicenseNo VARCHAR(7));
+
+             
  CREATE TABLE Faultreport
 (ReportNum CHAR(4) CONSTRAINT Faultreport_reportnum_PK PRIMARY KEY,
  DateChecked DATE,
@@ -83,13 +115,56 @@ CREATE TABLE RAgreement
  EmpNo CHAR(4),
  LicenseNo VARCHAR(7),
  RentalNo CHAR(4),
- CONSTRAINT OutNo_FK   FOREIGN KEY (outNo) 
-            REFERENCES  Outlet (outNo),
- CONSTRAINT RentalNo_FK   FOREIGN KEY (RentalNo) 
-            REFERENCES  RAgreement(RentalNo)
- CONSTRATINT EmpNo_FK FOREIGN KEY (EmpNo)
-	    REFERENCES Employee (EmpNo));
+ outNo CHAR(4));
 
 
+ALTER TABLE Employee
+ADD CONSTRAINT OutNo_FK1 FOREIGN KEY(outNo)
+            REFERENCES Outlet(outNo);
+
+ALTER TABLE Employee
+ADD CONSTRAINT SupervisorNo_FK FOREIGN KEY(SupervisorNo)
+	REFERENCES Employee(EmpNo);
 
 
+ALTER TABLE Outlet
+ADD CONSTRAINT ManagerNo_FK FOREIGN KEY(ManagerNo)
+          REFERENCES Employee(EmpNo);
+
+
+ALTER TABLE Vehicle
+ADD CONSTRAINT OutNo_FK2 FOREIGN KEY(outNo)
+            REFERENCES Outlet(outNo);
+
+ALTER TABLE Vehicle
+ADD CONSTRAINT Check_Age CHECK(TO_NUMBER(TO_CHAR(InsertDate,'YYYY'))-'Year'<10);
+
+
+ALTER TABLE RAgreement
+ADD CONSTRAINT ClientNo_FK FOREIGN KEY(ClientNo)
+            REFERENCES Client(ClientNo);
+
+ALTER TABLE RAgreement 
+ADD CONSTRAINT LicenseNo_FK FOREIGN KEY(LicenseNo)
+ 	    REFERENCES Vehicle(LicenseNo);
+
+ALTER TABLE RAgreement
+ADD CONSTRAINT Check_mileage CHECK(MileageBefore<MileageAfter);
+
+ALTER TABLE RAgreement
+ADD CONSTRAINT Date_check CHECK(ReturnDate>StartDate);
+
+ALTER TABLE Faultreport
+ADD CONSTRAINT OutNo_FK3 FOREIGN KEY(outNo)
+            REFERENCES Outlet(outNo);
+
+ALTER TABLE Faultreport
+ADD CONSTRAINT RentalNo_FK FOREIGN KEY(RentalNo)
+            REFERENCES RAgreement(RentalNo);
+
+ALTER TABLE Faultreport
+ADD CONSTRAINT EmpNo_FK FOREIGN KEY(EmpNo)
+         REFERENCES Employee(EmpNo);
+
+
+    
