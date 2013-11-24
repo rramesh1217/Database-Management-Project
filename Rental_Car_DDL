@@ -94,9 +94,7 @@ CREATE TABLE Vehicle
  Capacity NUMBER(2),
  DailyRate NUMBER(3),
  InspectionDate DATE,
- outNo CHAR(4),
- InsertDate DATE); 
-/*Should insert 'Sysdate' into this column every time we insert*/
+ outNo CHAR(4)); 
 
 
 CREATE TABLE RAgreement
@@ -167,6 +165,7 @@ ADD CONSTRAINT RentalNo_FK FOREIGN KEY(RentalNo)
 ALTER TABLE Faultreport
 ADD CONSTRAINT EmpNo_FK FOREIGN KEY(EmpNo)
          REFERENCES Employee(EmpNo);
-
+ALTER TABLE Vehicle
+ADD CONSTRAINT 2013-Year<=10;
 
     
