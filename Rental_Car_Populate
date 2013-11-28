@@ -342,11 +342,11 @@ VALUES     (7,TO_DATE('15-Mar-2013 14:50', 'DD-MON-YYYY HH24:MI:SS'),'Hydrolocke
 
 INSERT INTO FAULTREPORT
             (reportnum,datechecked,comments,empno,licenseNo,RentalNo)
-VALUES     (8,TO_DATE('17-May-2010 17:32', 'DD-MON-YYYY HH24:MI:SS'),'Overheated Engine',105,'WV020',6);
+VALUES     (8,TO_DATE('17-May-2010 17:32', 'DD-MON-YYYY HH24:MI:SS'),'Overheated Engine',105,'WV020',8);
 
 INSERT INTO FAULTREPORT
             (reportnum,datechecked,comments,empno,licenseNo,RentalNo)
-VALUES     (9,TO_DATE('17-Mar-2013 8:15', 'DD-MON-YYYY HH24:MI:SS'),'Blown Head Gasket',108,'DC354',5);
+VALUES     (9,TO_DATE('17-Mar-2013 8:15', 'DD-MON-YYYY HH24:MI:SS'),'Blown Head Gasket',108,'DC354',9);
 
 INSERT INTO FAULTREPORT
             (reportnum,datechecked,comments,empno,licenseNo,RentalNo)
@@ -354,11 +354,11 @@ VALUES     (10,TO_DATE('25-Feb-2013 16:00', 'DD-MON-YYYY HH24:MI:SS'),'Replace T
 
 INSERT INTO FAULTREPORT
             (reportnum,datechecked,comments,empno,licenseNo,RentalNo)
-VALUES      (11,TO_DATE('15-Jan-2008 10:30', 'DD-MON-YYYY HH24:MI:SS'),'Worn Clutch',108,'PA111',12);
+VALUES      (11,TO_DATE('15-Jan-2008 10:30', 'DD-MON-YYYY HH24:MI:SS'),'Worn Clutch',108,'PA111',11);
 
 INSERT INTO FAULTREPORT
             (reportnum,datechecked,comments,empno,licenseNo,RentalNo)
-VALUES      (12,TO_DATE('10-Dec-2009 06:00', 'DD-MON-YYYY HH24:MI:SS'),'Overheated Engine',108,'GE897',13); 
+VALUES      (12,TO_DATE('10-Dec-2009 06:00', 'DD-MON-YYYY HH24:MI:SS'),'Overheated Engine',108,'GE897',12); 
 
 
 commit;
