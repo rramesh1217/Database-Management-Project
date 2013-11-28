@@ -3,9 +3,9 @@ DROP CONSTRAINT OutNo_FK1;
 
 ALTER TABLE Employee
 DROP CONSTRAINT SupervisorNo_FK;
-	
+        
 ALTER TABLE Employee
-DROP CONSTRAINT Poisition_check;
+DROP CONSTRAINT Position_check;
 
 ALTER TABLE Outlet
 DROP CONSTRAINT ManagerNo_FK;
@@ -37,12 +37,12 @@ DROP CONSTRAINT RentalNo_FK;
 ALTER TABLE Faultreport
 DROP CONSTRAINT EmpNo_FK;
 
-DROP TABLE CLIENT;
-DROP TABLE OUTLET;
-DROP TABLE EMPLOYEE;
-DROP TABLE FAULTREPORT;
-DROP TABLE VEHICLE;
-DROP TABLE RAGREEMENT;
+DROP TABLE Client CASCADE CONSTRAINTS;
+DROP TABLE Outlet CASCADE CONSTRAINTS;
+DROP TABLE Employee CASCADE CONSTRAINTS;
+DROP TABLE Faultreport CASCADE CONSTRAINTS;
+DROP TABLE Vehicle CASCADE CONSTRAINTS;
+DROP TABLE RAgreement CASCADE CONSTRAINTS;
 
 CREATE TABLE Client
 (clientNo CHAR(3) CONSTRAINT Client_ClientNO_PK PRIMARY KEY,
@@ -54,15 +54,15 @@ CREATE TABLE Client
  WebAddress VARCHAR(30),
  Contact_FName VARCHAR(20),
  Contact_LName VARCHAR(20),
- Phone CHAR(10),
- Email VARCHAR(30) CHECK(Email like'%@%')); 
+ Phone NUMBER(10),
+ Email VARCHAR(30) CHECK(regexp_like(Email,'[a-zA-Z0-9._%-]+@[a-zA-Z0-9._%-]+\.[a-zA-Z]{2,4}'))); 
 /*Constraint defined by us*/
 
 CREATE TABLE Employee
 (EmpNo CHAR(4) CONSTRAINT Employee_employeeID_PK PRIMARY KEY,
  LName VARCHAR2(20),
  FName VARCHAR2(20),
- Position VARCHAR(20),
+ Position VARCHAR(30),
  Phone CHAR(10),
  DOB DATE,
  Gender CHAR(1) CHECK(Gender = 'M' OR Gender = 'F'), 
@@ -71,7 +71,7 @@ CREATE TABLE Employee
  HireDate DATE DEFAULT SYSDATE,
  outNo CHAR(4),
  SupervisorNo CHAR(4),
- Email VARCHAR2(25) CHECK(Email like '%@%')); 
+ Email VARCHAR2(25) CHECK(regexp_like(Email,'[a-zA-Z0-9._%-]+@[a-zA-Z0-9._%-]+\.[a-zA-Z]{2,4}'))); 
 /*Constraint defined by us*/
  
  
@@ -79,6 +79,7 @@ CREATE TABLE Employee
  (outNo CHAR(4) CONSTRAINT Outlet_OutNo_PK PRIMARY KEY,
   Street VARCHAR(20),
   City VARCHAR(20),
+  State VARCHAR(2),
   ZipCode NUMBER(5),
   Phone NUMBER(10),
   ManagerNo CHAR(4));
@@ -86,16 +87,15 @@ CREATE TABLE Employee
 
 CREATE TABLE Vehicle
 (LicenseNo VARCHAR(7) CONSTRAINT Vehicle_LicenseNo_PK PRIMARY KEY,
- Make VARCHAR(10),
- Model VARCHAR(10),
- Color VARCHAR(10),
+ Make VARCHAR(15),
+ Model VARCHAR(15),
+ Color VARCHAR(15),
  Year NUMBER(4),
  NoDoors NUMBER(2),
  Capacity NUMBER(2),
  DailyRate NUMBER(3),
  InspectionDate DATE,
  outNo CHAR(4)); 
-
 
 CREATE TABLE RAgreement
 (RentalNo CHAR(4) CONSTRAINT Ragreement_RentalNO_PK PRIMARY KEY,
@@ -111,12 +111,10 @@ CREATE TABLE RAgreement
  CREATE TABLE Faultreport
 (ReportNum CHAR(4) CONSTRAINT Faultreport_reportnum_PK PRIMARY KEY,
  DateChecked DATE,
- Comments VARCHAR(7),
+ Comments VARCHAR(100),
  EmpNo CHAR(4),
  LicenseNo VARCHAR(7),
- RentalNo CHAR(4),
- outNo CHAR(4));
-
+ RentalNo CHAR(4));
 
 ALTER TABLE Employee
 ADD CONSTRAINT OutNo_FK1 FOREIGN KEY(outNo)
@@ -124,10 +122,10 @@ ADD CONSTRAINT OutNo_FK1 FOREIGN KEY(outNo)
 
 ALTER TABLE Employee
 ADD CONSTRAINT SupervisorNo_FK FOREIGN KEY(SupervisorNo)
-	REFERENCES Employee(EmpNo);
-	
+        REFERENCES Employee(EmpNo);
+        
 ALTER TABLE Employee
-ADD CONSTRAINT Poisition_check CHECK(Position IN('Sales Rep', 'Administrative Assistant', 'Mechanic'));
+ADD CONSTRAINT Position_check CHECK(Position IN('SALES REP', 'ADMINISTRATIVE ASSISTANT', 'MECHANIC','AREA MANAGER'));
 
 ALTER TABLE Outlet
 ADD CONSTRAINT ManagerNo_FK FOREIGN KEY(ManagerNo)
@@ -138,7 +136,7 @@ ADD CONSTRAINT OutNo_FK2 FOREIGN KEY(outNo)
             REFERENCES Outlet(outNo);
 
 ALTER TABLE Vehicle
-ADD CONSTRAINT Check_Age CHECK(TO_NUMBER(TO_CHAR(InsertDate,'YYYY'))-'Year'<10);
+ADD CONSTRAINT Check_Age CHECK(Year>2003);
 
 ALTER TABLE RAgreement
 ADD CONSTRAINT ClientNo_FK FOREIGN KEY(ClientNo)
@@ -146,7 +144,7 @@ ADD CONSTRAINT ClientNo_FK FOREIGN KEY(ClientNo)
 
 ALTER TABLE RAgreement 
 ADD CONSTRAINT LicenseNo_FK FOREIGN KEY(LicenseNo)
- 	    REFERENCES Vehicle(LicenseNo);
+             REFERENCES Vehicle(LicenseNo);
 
 ALTER TABLE RAgreement
 ADD CONSTRAINT Check_mileage CHECK(MileageBefore<MileageAfter);
@@ -165,7 +163,3 @@ ADD CONSTRAINT RentalNo_FK FOREIGN KEY(RentalNo)
 ALTER TABLE Faultreport
 ADD CONSTRAINT EmpNo_FK FOREIGN KEY(EmpNo)
          REFERENCES Employee(EmpNo);
-ALTER TABLE Vehicle
-ADD CONSTRAINT 2013-Year<=10;
-
-    
