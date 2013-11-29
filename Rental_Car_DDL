@@ -1,165 +1,364 @@
-ALTER TABLE Employee
-DROP CONSTRAINT OutNo_FK1;
+INSERT INTO EMPLOYEE
+            (empno,position,fname,lname,phone,email,dob,gender,salary)
+VALUES      ('101','AREA MANAGER','Arvind','Ravi','4125551230','aravi@zipcar.com',TO_DATE('15-Dec-1975', 'DD-MON-YYYY'),'M','300000');
 
-ALTER TABLE Employee
-DROP CONSTRAINT SupervisorNo_FK;
-        
-ALTER TABLE Employee
-DROP CONSTRAINT Position_check;
+INSERT INTO EMPLOYEE
+            (empno,position,fname,lname,phone,email,dob,gender,salary,supervisorno)
+VALUES      ('102','AREA MANAGER','Sundar','Vignesh','4134556672','svignesh@zipcar.com',TO_DATE('21-Jan-1965', 'DD-MON-YYYY'),'M','250000','101');
 
-ALTER TABLE Outlet
-DROP CONSTRAINT ManagerNo_FK;
+INSERT INTO EMPLOYEE
+            (empno,position,fname,lname,phone,email,dob,gender,salary,supervisorno)
+VALUES      ('103','AREA MANAGER','Manoj','Selvaraj','4153909989','mselvaraj@zipcar.com',TO_DATE('14-Jul-1966', 'DD-MON-YYYY'),'M','260000','101');
 
-ALTER TABLE Vehicle
-DROP CONSTRAINT OutNo_FK2;
+INSERT INTO EMPLOYEE
+            (empno,position,fname,lname,phone,email,dob,gender,salary,supervisorno)
+VALUES      ('104','SALES REP','Sriganesh','Krishna','4123558499','skrishna@zipcar.com',TO_DATE('15-Aug-1983', 'DD-MON-YYYY'),'M','150000','102');
 
-ALTER TABLE Vehicle
-DROP CONSTRAINT Check_Age;
+INSERT INTO EMPLOYEE
+            (empno,position,fname,lname,phone,email,dob,gender,salary,supervisorno)
+VALUES      ('105','SALES REP','Nagul','Ram','6124193439','nram@zipcar.com',TO_DATE('19-Mar-1968', 'DD-MON-YYYY'),'M','100000','104');
 
-ALTER TABLE RAgreement
-DROP CONSTRAINT ClientNo_FK;
+INSERT INTO EMPLOYEE
+            (empno,position,fname,lname,phone,email,dob,gender,salary,supervisorno)
+VALUES      ('106','SALES REP','Guru','Soma','6081008987','gsoma@zipcar.com',TO_DATE('22-Dec-1985', 'DD-MON-YYYY'),'M','100000','104');
 
-ALTER TABLE RAgreement 
-DROP CONSTRAINT LicenseNo_FK;
+INSERT INTO EMPLOYEE
+            (empno,position,fname,lname,phone,email,dob,gender,salary,supervisorno)
+VALUES      ('107','ADMINISTRATIVE ASSISTANT','Rohan','Mishra','3545198499','rmishra@zipcar.com',TO_DATE('24-Apr-1965','DD-MON-YYYY'),'M','60000','101');
 
-ALTER TABLE RAgreement
-DROP CONSTRAINT Check_mileag;
+INSERT INTO EMPLOYEE
+            (empno,position,fname,lname,phone,email,dob,gender,salary,supervisorno)
+VALUES      ('108','ADMINISTRATIVE ASSISTANT','Vijay','Mehta','5530098499','vmehta@zipcar.com',TO_DATE('13-Mar-1988','DD-MON-YYYY'),'M','65000','101');
 
-ALTER TABLE RAgreement
-DROP CONSTRAINT Date_check;
+INSERT INTO EMPLOYEE
+            (empno,position,fname,lname,phone,email,dob,gender,salary,supervisorno)
+VALUES      ('109','ADMINISTRATIVE ASSISTANT','Vinod','Vickram','7765198499','vvickram@zipcar.com',TO_DATE('28-Sep-1977', 'DD-MON-YYYY'),'M','55000','102');
 
-ALTER TABLE Faultreport
-DROP CONSTRAINT LicenseNo1_FK3;
+INSERT INTO EMPLOYEE
+            (empno,position,fname,lname,phone,email,dob,gender,salary,supervisorno)
+VALUES      ('110','ADMINISTRATIVE ASSISTANT','Mathura','Balaji','5124546768','mbalaji@zipcar.com',TO_DATE('17-Mar-1990', 'DD-MON-YYYY'),'F','85000','102');
 
-ALTER TABLE Faultreport
-DROP CONSTRAINT RentalNo_FK;
-
-ALTER TABLE Faultreport
-DROP CONSTRAINT EmpNo_FK;
-
-DROP TABLE Client CASCADE CONSTRAINTS;
-DROP TABLE Outlet CASCADE CONSTRAINTS;
-DROP TABLE Employee CASCADE CONSTRAINTS;
-DROP TABLE Faultreport CASCADE CONSTRAINTS;
-DROP TABLE Vehicle CASCADE CONSTRAINTS;
-DROP TABLE RAgreement CASCADE CONSTRAINTS;
-
-CREATE TABLE Client
-(clientNo CHAR(3) CONSTRAINT Client_ClientNO_PK PRIMARY KEY,
- ClientName VARCHAR(30),
- Street VARCHAR(20),
- City CHAR(20),
- State CHAR(2),
- ZipCode NUMBER(5),
- WebAddress VARCHAR(30),
- Contact_FName VARCHAR(20),
- Contact_LName VARCHAR(20),
- Phone NUMBER(10),
- Email VARCHAR(30) CHECK(regexp_like(Email,'[a-zA-Z0-9._%-]+@[a-zA-Z0-9._%-]+\.[a-zA-Z]{2,4}'))); 
-/*Constraint defined by us*/
-
-CREATE TABLE Employee
-(EmpNo CHAR(4) CONSTRAINT Employee_employeeID_PK PRIMARY KEY,
- LName VARCHAR2(20),
- FName VARCHAR2(20),
- Position VARCHAR(30),
- Phone CHAR(10),
- DOB DATE,
- Gender CHAR(1) CHECK(Gender = 'M' OR Gender = 'F'), 
-/*Constraint defined by us*/
- Salary NUMBER(6),
- HireDate DATE DEFAULT SYSDATE,
- outNo CHAR(4),
- SupervisorNo CHAR(4),
- Email VARCHAR2(25) CHECK(regexp_like(Email,'[a-zA-Z0-9._%-]+@[a-zA-Z0-9._%-]+\.[a-zA-Z]{2,4}'))); 
-/*Constraint defined by us*/
+INSERT INTO EMPLOYEE
+            (empno,position,fname,lname,phone,email,dob,gender,salary,supervisorno)
+VALUES      ('111','ADMINISTRATIVE ASSISTANT','Srinidhi','Priya','5124546678','spriya@zipcar.com',TO_DATE('06-Jul-1989', 'DD-MON-YYYY'),'F','85000','103');
  
+INSERT INTO EMPLOYEE
+            (empno,position,fname,lname,phone,email,dob,gender,salary,supervisorno)
+VALUES      ('112','ADMINISTRATIVE ASSISTANT','Ganesh','Balaji','4126083135','gbalaji@zipcar.com',TO_DATE('10-Aug-1980', 'DD-MON-YYYY'),'M','70000','104');
+
+INSERT INTO EMPLOYEE
+            (empno,position,fname,lname,phone,email,dob,gender,salary,supervisorno)
+VALUES      ('113','MECHANIC','Gowtham','Parth','6773237877','gparth@zipcar.com',TO_DATE('11-Mar-1983', 'DD-MON-YYYY'),'M','35000','108');
+
+INSERT INTO EMPLOYEE
+            (empno,position,fname,lname,phone,email,dob,gender,salary,supervisorno)
+VALUES      ('114','MECHANIC','Ravi','Ram','6123452378','rram@zipcar.com',TO_DATE('09-Jun-1986', 'DD-MON-YYYY'),'M','20000','110');
+
+INSERT INTO EMPLOYEE
+            (empno,position,fname,lname,phone,email,dob,gender,salary,supervisorno)
+VALUES      ('115','MECHANIC','Roop','Gupta','3325768499','rgupta@zipcar.com',TO_DATE('11-Jun-1969', 'DD-MON-YYYY'),'F','35000','111');
+
+
+
+
+INSERT INTO OUTLET
+            (outno,street,city,state,zipcode,phone,managerno)
+VALUES      ('1','5260 Centre Avenue','Cincinnati','OH','45232','4126085555',101);
+
+INSERT INTO OUTLET
+            (outno,street,city,state,zipcode,phone,managerno)
+VALUES      ('2','5620 Fifth Avenue','San Jose','CA','95035','6124765544',101);
+
+INSERT INTO OUTLET
+            (outno,street,city,state,zipcode,phone,managerno)
+VALUES      ('3','3340 North Street','San Francisco','CA','91911','6127987654',101);
+
+INSERT INTO OUTLET
+            (outno,street,city,state,zipcode,phone,managerno)
+VALUES      ('4','3138 S.Aiken Avenue','Pittsburgh','PA','15232','4765465343',103);
+
+INSERT INTO OUTLET
+            (outno,street,city,state,zipcode,phone,managerno)
+VALUES      ('5','5676 S.Negley Avenue','Pittsburgh','PA','15261','4766786543',102);
+
+
+INSERT INTO OUTLET
+            (outno,street,city,state,zipcode,phone,managerno)
+VALUES      ('6','6878 Walnut Street','Pittsburgh','PA','15213','4768234572',102);
+
+INSERT INTO OUTLET
+            (outno,street,city,state,zipcode,phone,managerno)
+VALUES      ('7','5342 Wightman Street','Pittsburgh','PA','15278','4764334572','103');
  
- CREATE TABLE Outlet
- (outNo CHAR(4) CONSTRAINT Outlet_OutNo_PK PRIMARY KEY,
-  Street VARCHAR(20),
-  City VARCHAR(20),
-  State VARCHAR(2),
-  ZipCode NUMBER(5),
-  Phone NUMBER(10),
-  ManagerNo CHAR(4));
+
+
+
+UPDATE EMPLOYEE
+SET    outno = 1
+WHERE  empno = '101';
+
+UPDATE EMPLOYEE
+SET    outno = 2
+WHERE  empno = '102';
+
+UPDATE EMPLOYEE
+SET    outno = 3
+WHERE  empno = '103';
+
+UPDATE EMPLOYEE
+SET    outno = 1
+WHERE  empno = '104';
+
+UPDATE EMPLOYEE
+SET    outno = 2
+WHERE  empno = '105';
+
+UPDATE EMPLOYEE
+SET    outno = 3
+WHERE  empno = '106';
+
+UPDATE EMPLOYEE
+SET    outno = 4
+WHERE  empno = '107';
+
+UPDATE EMPLOYEE
+SET    outno = 5
+WHERE  empno = '108';
+
+UPDATE EMPLOYEE
+SET    outno = 6
+WHERE  empno = '109';
+
+UPDATE EMPLOYEE
+SET    outno = 7
+WHERE  empno = '110';
+
+UPDATE EMPLOYEE
+SET    outno = 1
+WHERE  empno = '111';
+
+UPDATE EMPLOYEE
+SET    outno = 3
+WHERE  empno = '112';
+
+UPDATE EMPLOYEE
+SET    outno = 5
+WHERE  empno = '113';
+
+UPDATE EMPLOYEE
+SET    outno = 7
+WHERE  empno = '114';
  
 
-CREATE TABLE Vehicle
-(LicenseNo VARCHAR(7) CONSTRAINT Vehicle_LicenseNo_PK PRIMARY KEY,
- Make VARCHAR(15),
- Model VARCHAR(15),
- Color VARCHAR(15),
- Year NUMBER(4),
- NoDoors NUMBER(2),
- Capacity NUMBER(2),
- DailyRate NUMBER(3),
- InspectionDate DATE,
- outNo CHAR(4)); 
 
-CREATE TABLE RAgreement
-(RentalNo CHAR(4) CONSTRAINT Ragreement_RentalNO_PK PRIMARY KEY,
- StartDate DATE DEFAULT SYSDATE,
- ReturnDate DATE,
- MileageBefore NUMBER(6),
- MileageAfter NUMBER(6),
- InsuranceType VARCHAR(10),
- ClientNo CHAR(3),
- LicenseNo VARCHAR(7));
+INSERT INTO VEHICLE
+            (licenseNo,make,model,color,year,nodoors,capacity,dailyrate,outno)
+VALUES     ('PA111','Honda','Pilot','Red','2008','4','5','50',2);
 
-             
- CREATE TABLE Faultreport
-(ReportNum CHAR(4) CONSTRAINT Faultreport_reportnum_PK PRIMARY KEY,
- DateChecked DATE,
- Comments VARCHAR(100),
- EmpNo CHAR(4),
- LicenseNo VARCHAR(7),
- RentalNo CHAR(4));
+INSERT INTO VEHICLE
+            (licenseNo,make,model,color,year,nodoors,capacity,dailyrate,outno)
+VALUES     ('PA112','Nissan','Pathfinder','Metal Green','2009','2','2','100',1);
 
-ALTER TABLE Employee
-ADD CONSTRAINT OutNo_FK1 FOREIGN KEY(outNo)
-            REFERENCES Outlet(outNo);
+INSERT INTO VEHICLE
+            (licenseNo,make,model,color,year,nodoors,capacity,dailyrate,outno)
+VALUES     ('PA113','Mercedes Benz','C-Class','Black','2011','4','4','160',3);
 
-ALTER TABLE Employee
-ADD CONSTRAINT SupervisorNo_FK FOREIGN KEY(SupervisorNo)
-        REFERENCES Employee(EmpNo);
-        
-ALTER TABLE Employee
-ADD CONSTRAINT Position_check CHECK(Position IN('SALES REP', 'ADMINISTRATIVE ASSISTANT', 'MECHANIC','AREA MANAGER'));
+INSERT INTO VEHICLE
+            (licenseNo,make,model,color,year,nodoors,capacity,dailyrate,outno)
+VALUES     ('MN099','Honda','CR-V','White','2006','4','5','90',4);
 
-ALTER TABLE Outlet
-ADD CONSTRAINT ManagerNo_FK FOREIGN KEY(ManagerNo)
-          REFERENCES Employee(EmpNo);
+INSERT INTO VEHICLE
+            (licenseNo,make,model,color,year,nodoors,capacity,dailyrate,outno)
+VALUES     ('VG234','BMW','520d','Blue','2007','4','5','120',5);
 
-ALTER TABLE Vehicle
-ADD CONSTRAINT OutNo_FK2 FOREIGN KEY(outNo)
-            REFERENCES Outlet(outNo);
+INSERT INTO VEHICLE
+            (licenseNo,make,model,color,year,nodoors,capacity,dailyrate,outno)
+VALUES     ('DC354','Ford','Ecsape','Silver','2006','4','4','80',6);
 
-ALTER TABLE Vehicle
-ADD CONSTRAINT Check_Age CHECK(Year>2003);
+INSERT INTO VEHICLE
+            (licenseNo,make,model,color,year,nodoors,capacity,dailyrate,outno)
+VALUES     ('WV020','Porsche','Cayman','Red','2004','2','2','150',5);
 
-ALTER TABLE RAgreement
-ADD CONSTRAINT ClientNo_FK FOREIGN KEY(ClientNo)
-            REFERENCES Client(ClientNo);
+INSERT INTO VEHICLE
+            (licenseNo,make,model,color,year,nodoors,capacity,dailyrate,outno)
+VALUES     ('GE897','Hyundai','Santro','White','2005','4','4','120',4);
 
-ALTER TABLE RAgreement 
-ADD CONSTRAINT LicenseNo_FK FOREIGN KEY(LicenseNo)
-             REFERENCES Vehicle(LicenseNo);
+INSERT INTO VEHICLE
+            (licenseNo,make,model,color,year,nodoors,capacity,dailyrate,outno)
+VALUES     ('GA978','Ferrari','F530','Yellow','2008','2','2','200',5);
 
-ALTER TABLE RAgreement
-ADD CONSTRAINT Check_mileage CHECK(MileageBefore<MileageAfter);
+INSERT INTO VEHICLE
+            (licenseNo,make,model,color,year,nodoors,capacity,dailyrate,outno)
+VALUES     ('TX239','Volkswagan','Passat','Grey','2009','4','4','80',4);
 
-ALTER TABLE RAgreement
-ADD CONSTRAINT Date_check CHECK(ReturnDate>StartDate);
+INSERT INTO VEHICLE
+            (licenseNo,make,model,color,year,nodoors,capacity,dailyrate,outno)
+VALUES     ('FK098','Audi','Q5','Metal Grey','2010','4','4','175',5);
 
-ALTER TABLE Faultreport
-ADD CONSTRAINT LicenseNo1_FK3 FOREIGN KEY(LicenseNo)
-            REFERENCES Vehicle(LicenseNo);
+INSERT INTO VEHICLE
+            (licenseNo,make,model,color,year,nodoors,capacity,dailyrate,outno)
+VALUES      ('MA353','Ford','Explorer','Yellow','2007','4','5','100',7);
 
-ALTER TABLE Faultreport
-ADD CONSTRAINT RentalNo_FK FOREIGN KEY(RentalNo)
-            REFERENCES RAgreement(RentalNo);
+INSERT INTO VEHICLE
+            (licenseNo,make,model,color,year,nodoors,capacity,dailyrate,outno)
+VALUES      ('VG242','Nissan','Micra','Cream','2009','4','4','60',3);
+ 
 
-ALTER TABLE Faultreport
-ADD CONSTRAINT EmpNo_FK FOREIGN KEY(EmpNo)
-         REFERENCES Employee(EmpNo);
+
+INSERT INTO CLIENT
+            (clientno,clientname,street,city,state,zipcode,webaddress,contact_fname,contact_lname,phone,email)
+VALUES     ('1','Carnegie Mellon University','5000 Forbes Avenue','Pittsburgh','PA','15232','www.cmu.edu','Rajesh','Talwar','5673426797','rtalwar@cmu.edu');
+
+INSERT INTO CLIENT
+            (clientno,clientname,street,city,state,zipcode,webaddress,contact_fname,contact_lname,phone,email)
+VALUES     ('2','University of Pittsburgh','2000 Forbes Avenue','Pittsburgh','PA','15231','www.upitt.edu','Vignesh','Maran','4098764246','vmaran@upitt.edu');
+
+INSERT INTO CLIENT
+            (clientno,clientname,street,city,state,zipcode,webaddress,contact_fname,contact_lname,phone,email)
+VALUES     ('3','Google','1000 Murray Avenue','Pittsburgh','PA','12532','www.google.com','Eric','Schmidt','6709867625','eschmidt@google.com');
+
+INSERT INTO CLIENT
+            (clientno,clientname,street,city,state,zipcode,webaddress,contact_fname,contact_lname,phone,email)
+VALUES     ('4','IBM','3454 S.Negley Avenue','Cincinnati','OH','13456','www.ibm.com','Anil','Kapoor','9139647867','akapoor@ibm.com');
+
+INSERT INTO CLIENT
+            (clientno,clientname,street,city,state,zipcode,webaddress,contact_fname,contact_lname,phone,email)
+VALUES     ('5','Deloitte','1000 Wood Street','Pittsburgh','PA','13452','www.deloitte.com','Sunil','Joseph','8767878764','sjoseph@deloitte.com');
+
+INSERT INTO CLIENT
+            (clientno,clientname,street,city,state,zipcode,webaddress,contact_fname,contact_lname,phone,email)
+VALUES     ('6','Yahoo','7876 Station Street','San Francisco','CA','97762','www.yahoo.com','Elisa','Meyer','7856210006','emeyer@yahoo.com');
+
+INSERT INTO CLIENT
+            (clientno,clientname,street,city,state,zipcode,webaddress,contact_fname,contact_lname,phone,email)
+VALUES     ('7','Oracle','5632 Foster Avenue','San Francisco','CA','97732','www.oracle.com','Tom','Barr','5679086743','tbarr@oracle.com');
+
+INSERT INTO CLIENT
+            (clientno,clientname,street,city,state,zipcode,webaddress,contact_fname,contact_lname,phone,email)
+VALUES     ('8','Intuit','9876 Sherwood Street','San Diego','CA','99678','www.intuit.com','Max','Smith','4589213456','msmith@intuit.com');
+
+INSERT INTO CLIENT
+            (clientno,clientname,street,city,state,zipcode,webaddress,contact_fname,contact_lname,phone,email)
+VALUES     ('9','Barclays','5757 S.Craig Street','Pittsburgh','PA','92142','www.barclays.com','Manoj','Ravi','4527849069','mravi@barclays.com');
+
+INSERT INTO CLIENT
+            (clientno,clientname,street,city,state,zipcode,webaddress,contact_fname,contact_lname,phone,email)
+VALUES     ('10','Accenture','1000 Forbes Avenue','San Diego','CA','97732','www.accenture.com','Vignesh','Sivanandam','4097489234','vsiva@accenture.com');
+
+INSERT INTO CLIENT
+            (clientno,clientname,street,city,state,zipcode,webaddress,contact_fname,contact_lname,phone,email)
+VALUES      ('11','Mckinsey','5400 Penn Avenue','Pittsburgh','PA','16782','www.mckinsey.com','Swetha','Vasu','8709856234','svasu@mckinsey.com');
+
+INSERT INTO CLIENT
+            (clientno,clientname,street,city,state,zipcode,webaddress,contact_fname,contact_lname,phone,email)
+VALUES      ('12','University of Cincinnati','2000 Ross Street','Cincinnati','OH','45345','www.ucinn.edu','Vishak','Venky','3467864372','vvenky@ucinn.edu');
+
+
+
+
+INSERT INTO RAGREEMENT
+            (RentalNo,startdate,returndate,mileagebefore,mileageafter,insurancetype,clientno,licenseNo)
+VALUES     (1,TO_DATE('11-Jan-2012 17:30', 'DD-MON-YYYY HH24:MI:SS'),TO_DATE('11-Jan-2012 22:00', 'DD-MON-YYYY HH24:MI:SS'),11000,11090,'Full',4,'PA113');
+
+INSERT INTO RAGREEMENT
+            (RentalNo,startdate,returndate,mileagebefore,mileageafter,insurancetype,clientno,licenseNo)
+VALUES     (2,TO_DATE('26-Apr-2009 09:00', 'DD-MON-YYYY HH24:MI:SS'),TO_DATE('26-Apr-2012 11:30', 'DD-MON-YYYY HH24:MI:SS'),60000,64600,'Full',1,'PA112');
+
+INSERT INTO RAGREEMENT
+            (RentalNo,startdate,returndate,mileagebefore,mileageafter,insurancetype,clientno,licenseNo)
+VALUES     (3,TO_DATE('15-Jan-2006 14:00', 'DD-MON-YYYY HH24:MI:SS'),TO_DATE('10-Jan-2009 18:30', 'DD-MON-YYYY HH24:MI:SS'),10000,80090,'Partial',3,'MN099');
+
+INSERT INTO RAGREEMENT
+            (RentalNo,startdate,returndate,mileagebefore,mileageafter,insurancetype,clientno,licenseNo)
+VALUES     (4,TO_DATE('15-Jan-2010 5:00', 'DD-MON-YYYY HH24:MI:SS'),TO_DATE('15-Jan-2010 17:30', 'DD-MON-YYYY HH24:MI:SS'),2000,3000,'Partial',6,'VG234');
+
+INSERT INTO RAGREEMENT
+            (RentalNo,startdate,returndate,mileagebefore,mileageafter,insurancetype,clientno,licenseNo)
+VALUES     (5,TO_DATE('26-Jul-2010 23:30', 'DD-MON-YYYY HH24:MI:SS'),TO_DATE('27-Jul-2013 02:00', 'DD-MON-YYYY HH24:MI:SS'),5500,6100,'Full',7,'DC354');
+
+INSERT INTO RAGREEMENT
+            (RentalNo,startdate,returndate,mileagebefore,mileageafter,insurancetype,clientno,licenseNo)
+VALUES     (6,TO_DATE('1-Aug-2008 08:00', 'DD-MON-YYYY HH24:MI:SS'),TO_DATE('31-Aug-2008 09:30', 'DD-MON-YYYY HH24:MI:SS'),3000,9500,'Partial',8,'WV020');
+
+INSERT INTO RAGREEMENT
+            (RentalNo,startdate,returndate,mileagebefore,mileageafter,insurancetype,clientno,licenseNo)
+VALUES     (7,TO_DATE('11-Feb-2013 17:30', 'DD-MON-YYYY HH24:MI:SS'),TO_DATE('15-Feb-2013 23:00', 'DD-MON-YYYY HH24:MI:SS'),4000,8000,'Partial',9,'GE897');
+
+INSERT INTO RAGREEMENT
+            (RentalNo,startdate,returndate,mileagebefore,mileageafter,insurancetype,clientno,licenseNo)
+VALUES     (8,TO_DATE('20-Jun-2009 10:00', 'DD-MON-YYYY HH24:MI:SS'),TO_DATE('25-Jan-2012 17:30', 'DD-MON-YYYY HH24:MI:SS'),12000,40000,'Partial',5,'WV020');
+
+INSERT INTO RAGREEMENT
+            (RentalNo,startdate,returndate,mileagebefore,mileageafter,insurancetype,clientno,licenseNo)
+VALUES     (9,TO_DATE('01-Sep-2007 11:30', 'DD-MON-YYYY HH24:MI:SS'),TO_DATE('01-Sep-2007 21:30', 'DD-MON-YYYY HH24:MI:SS'),60000,80000,'Partial',1,'VG242');
+
+INSERT INTO RAGREEMENT
+            (RentalNo,startdate,returndate,mileagebefore,mileageafter,insurancetype,clientno,licenseNo)
+VALUES     (10,TO_DATE('10-Dec-2012 08:00', 'DD-MON-YYYY HH24:MI:SS'),TO_DATE('20-Mar-2013 08:00', 'DD-MON-YYYY HH24:MI:SS'),10000,16000,'Partial',10,'MA353');
+
+INSERT INTO RAGREEMENT
+            (RentalNo,startdate,returndate,mileagebefore,mileageafter,insurancetype,clientno,licenseNo)
+VALUES     (11,TO_DATE('10-Jan-2009 13:00', 'DD-MON-YYYY HH24:MI:SS'),TO_DATE('15-Sep-2012 21:00', 'DD-MON-YYYY HH24:MI:SS'),9500,32400,'Full',2,'PA111');
+
+INSERT INTO RAGREEMENT
+            (RentalNo,startdate,returndate,mileagebefore,mileageafter,insurancetype,clientno,licenseNo)
+VALUES     (12,TO_DATE('21-Mar-2009 14:30', 'DD-MON-YYYY HH24:MI:SS'),TO_DATE('14-Jul-2010 21:05', 'DD-MON-YYYY HH24:MI:SS'),80090,120810,'Full',4,'MN099');
+
+INSERT INTO RAGREEMENT
+            (RentalNo,startdate,returndate,mileagebefore,mileageafter,insurancetype,clientno,licenseNo)
+VALUES     (13,TO_DATE('1-Apr-2013 17:30', 'DD-MON-YYYY HH24:MI:SS'),TO_DATE('31-Aug-2013 23:00', 'DD-MON-YYYY HH24:MI:SS'),8000,48000,'Partial',9,'GE897');
+
+
+
+
+
+INSERT INTO FAULTREPORT
+            (reportnum,datechecked,comments,empno,licenseNo,RentalNo)
+VALUES     (1,TO_DATE('10-Jan-2010 07:40', 'DD-MON-YYYY HH24:MI:SS'),'Seized Engine Due To Lack Of Oil',107,'PA113',1);
+
+INSERT INTO FAULTREPORT
+            (reportnum,datechecked,comments,empno,licenseNo,RentalNo)
+VALUES     (2,TO_DATE('10-Aug-2001 10:15', 'DD-MON-YYYY HH24:MI:SS'),'Hydrolocked Engine',107,'PA112',2);
+
+INSERT INTO FAULTREPORT
+            (reportnum,datechecked,comments,empno,licenseNo,RentalNo)
+VALUES     (3,TO_DATE('20-Apr-2009 09:45', 'DD-MON-YYYY HH24:MI:SS'),'Overheated Engine',108,'MN099',3);
+
+INSERT INTO FAULTREPORT
+            (reportnum,datechecked,comments,empno,licenseNo,RentalNo)
+VALUES     (4,TO_DATE('25-Jan-2010 14:00', 'DD-MON-YYYY HH24:MI:SS'),'Transmission Soiled The Bed',101,'VG234',4);
+
+INSERT INTO FAULTREPORT
+            (reportnum,datechecked,comments,empno,licenseNo,RentalNo)
+VALUES     (5,TO_DATE('16-Mar-2008 10:00', 'DD-MON-YYYY HH24:MI:SS'),'Blown Head Gasket',102,'DC354',5);
+
+INSERT INTO FAULTREPORT
+            (reportnum,datechecked,comments,empno,licenseNo,RentalNo)
+VALUES     (6,TO_DATE('29-Jun-2006 16:45', 'DD-MON-YYYY HH24:MI:SS'),'Broken Timing Belt',109,'WV020',6);
+
+INSERT INTO FAULTREPORT
+            (reportnum,datechecked,comments,empno,licenseNo,RentalNo)
+VALUES     (7,TO_DATE('15-Mar-2013 14:50', 'DD-MON-YYYY HH24:MI:SS'),'Hydrolocked Engine',103,'GE897',7);
+
+INSERT INTO FAULTREPORT
+            (reportnum,datechecked,comments,empno,licenseNo,RentalNo)
+VALUES     (8,TO_DATE('17-May-2010 17:32', 'DD-MON-YYYY HH24:MI:SS'),'Overheated Engine',105,'WV020',8);
+
+INSERT INTO FAULTREPORT
+            (reportnum,datechecked,comments,empno,licenseNo,RentalNo)
+VALUES     (9,TO_DATE('17-Mar-2013 8:15', 'DD-MON-YYYY HH24:MI:SS'),'Blown Head Gasket',108,'DC354',9);
+
+INSERT INTO FAULTREPORT
+            (reportnum,datechecked,comments,empno,licenseNo,RentalNo)
+VALUES     (10,TO_DATE('25-Feb-2013 16:00', 'DD-MON-YYYY HH24:MI:SS'),'Replace Transmission Fluid',109,'VG242',10);
+
+INSERT INTO FAULTREPORT
+            (reportnum,datechecked,comments,empno,licenseNo,RentalNo)
+VALUES      (11,TO_DATE('15-Jan-2008 10:30', 'DD-MON-YYYY HH24:MI:SS'),'Worn Clutch',108,'PA111',11);
+
+INSERT INTO FAULTREPORT
+            (reportnum,datechecked,comments,empno,licenseNo,RentalNo)
+VALUES      (12,TO_DATE('10-Dec-2009 06:00', 'DD-MON-YYYY HH24:MI:SS'),'Overheated Engine',108,'GE897',12); 
+
+
+commit;
